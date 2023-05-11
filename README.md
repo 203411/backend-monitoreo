@@ -4,8 +4,9 @@
 Crea un archivo .env en la raiz del proyecto a la misma altura que el package.json
 
 _Plantilla:_
-HOST = 'localhost'
-USER = 'root'
-PASSWORD = 'tucontraseña'
-DATABASE = 'tubasededatos'
-PORT = 3000
+* DB_HOST = 'host'
+* DB_USER = 'user'
+* DB_PASSWORD = 'password'
+* DB_DATABASE = 'database'
+* DB_PORT = 5448
+* PORT = 3000
