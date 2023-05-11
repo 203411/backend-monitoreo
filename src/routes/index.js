@@ -18,7 +18,7 @@ router.post('/login', async (req, res) => {
     }
   
     const query = 'SELECT * FROM users WHERE email = ?';
-    connection.query(query, [email], async (error, results) => {
+    await connection.query(query, [email], async (error, results) => {
       if (error) {
         console.error('Error querying database:', error);
         return res.status(500).json({ message: 'Internal server error.' });
@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
 router.get('/user/:id', async (req, res) => {
   try {
       const {id} = req.params;
-      const user = connection.query('SELECT * FROM users WHERE id = ?', [id]);
+      const user = await connection.query('SELECT * FROM users WHERE id = ?', [id]);
       res.json(user[0]);
   } catch (error) {
       console.log(error);
@@ -60,7 +60,7 @@ router.post('/register', async (req, res) => {
         // Extraer información del cuerpo de la solicitud
         let {name,lastname,email,dayBirth,nss,sex,age,height,weight,phone,ePhone,adress,nameMedic,hospital,password} = req.body;
 
-        const users= connection.query('SELECT * FROM users WHERE email = ?', [email]);
+        const users= await connection.query('SELECT * FROM users WHERE email = ?', [email]);
         console.log(users);
         console.log(req.body);
         
@@ -73,7 +73,7 @@ router.post('/register', async (req, res) => {
         let new_password = await bcrypt.hash(password, 10);
         const newUser = {name,lastname,email,dayBirth,nss,sex,age,height,weight,phone,ePhone,adress,nameMedic,hospital,password: new_password}
         
-        connection.query('INSERT INTO users set ?', [newUser]);
+        await connection.query('INSERT INTO users set ?', [newUser]);
         res.send(req.body);
        
     } catch (error) {
